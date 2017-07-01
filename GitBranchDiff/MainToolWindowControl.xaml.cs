@@ -54,5 +54,11 @@ namespace GitBranchDiff
             var model = (MainToolWindowViewModel)DataContext;
             model.Reload();
         }
+
+        private void Branch_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var model = (MainToolWindowViewModel)DataContext;
+            model.Reload(false);
+        }
     }
 }

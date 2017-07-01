@@ -105,10 +105,9 @@ namespace GitBranchDiff
 
         }
 
-        public void Reload()
+        public MainToolWindow GetWindow()
         {
-            var window = (MainToolWindow)this.package.FindToolWindow(typeof(MainToolWindow), 0, true);
-            window.Reload();
+            return (MainToolWindow)this.package.FindToolWindow(typeof(MainToolWindow), 0, true);
         }
     }
 }

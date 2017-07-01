@@ -46,7 +46,7 @@ namespace GitBranchDiff
 
         public void Reload()
         {
-            ViewModel.Reload();
+            ViewModel.Reload(ViewModel.SelectedBranch == null);
         }
     }
 }

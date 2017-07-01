@@ -73,23 +73,23 @@ namespace GitBranchDiff
 
             VisualStudioService.Initialize(this);
             VisualStudioService.SolutionEvents.Opened += SolutionEvents_Opened;
-            VisualStudioService.BuildEvents.OnBuildBegin += BuildEvents_OnBuildBegin;
+        }
+
+        private void WindowEvents_WindowActivated(Window GotFocus, Window LostFocus)
+        {
+            var window = MainToolWindowCommand.Instance.GetWindow();
+            if (GotFocus.Caption == window.Caption)
+                window.Reload();
         }
 
         private void BuildEvents_OnBuildBegin(vsBuildScope Scope, vsBuildAction Action)
         {
-            Reload();
+            MainToolWindowCommand.Instance.GetWindow().Reload();
         }
 
         private void SolutionEvents_Opened()
         {
-            
-            Reload();
-        }
-
-        private void Reload()
-        {
-            MainToolWindowCommand.Instance.Reload();
+            MainToolWindowCommand.Instance.GetWindow().Reload();
         }
     }
 }
