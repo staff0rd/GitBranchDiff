@@ -11,23 +11,44 @@
              Name="MyToolWindow">
     <UserControl.Resources>
 
-        <HierarchicalDataTemplate DataType="{x:Type Model:DirectoryItem}"
-                                  ItemsSource="{Binding Items}">
+        <HierarchicalDataTemplate DataType="{x:Type Model:DirectoryItem}" ItemsSource="{Binding Items}">
             <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
         </HierarchicalDataTemplate>
 
         <DataTemplate DataType="{x:Type Model:FileItem}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
+            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                <Setter Property="TextBlock.TextDecorations" Value="Strikethrough" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsAdded}" Value="True">
+                                <Setter Property="Foreground" Value="Green" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
         </DataTemplate>
-
     </UserControl.Resources>
 
     <Grid Margin="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="24"/>
+            <RowDefinition Height="35"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Click="Reload_Click">Reload</Button>
+        <Grid Margin="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Label Margin="2">Branch</Label>
+            <ComboBox Grid.Column="1" ItemsSource="{Binding Branches}" SelectedItem="{Binding SelectedBranch}" SelectedValuePath="Name" DisplayMemberPath="Name" SelectionChanged="Branch_SelectionChanged" />
+            <Button Grid.Column="2" Click="Reload_Click">Reload</Button>
+        </Grid>
+        
         <TreeView Grid.Row="1" ItemsSource="{Binding Items}">
             <TreeView.ItemContainerStyle>
                 <Style TargetType="{x:Type TreeViewItem}">
