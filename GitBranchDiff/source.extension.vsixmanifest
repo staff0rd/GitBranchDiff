@@ -3,7 +3,7 @@
   <Metadata>
     <Identity Id="GitBranchDiff.Stafford Williams.2b53e0e1-7d86-4cb8-ae5c-55d9b00f5329" Version="1.0" Language="en-US" Publisher="Stafford Williams" />
     <DisplayName>GitBranchDiff</DisplayName>
-    <Description>Empty VSIX Project.</Description>
+    <Description>List added, modified and deleted files between the current and selected branch.</Description>
   </Metadata>
   <Installation>
     <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[14.0]" />
