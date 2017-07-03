@@ -17,9 +17,9 @@ namespace GitBranchDiff
         {
             if (branch.Contains("*"))
                 branch = branch.Replace("*", "").Trim();
-            var diff = new ShellCommand().Execute("git", $"diff --name-status {branch}", gitRoot);
+            var diff = new ShellCommand().ExecuteGit($"diff --name-status {branch}", gitRoot);
 
-            var changes = new ShellCommand().Execute("git", "status --porcelain -u", gitRoot);
+            var changes = new ShellCommand().ExecuteGit("status --porcelain -u", gitRoot);
 
             diff.AddRange(ConvertChanges(changes));
 

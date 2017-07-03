@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace GitBranchDiff
 {
     public class ShellCommand
     {
-        public List<string> Execute(string fileName, string arguments, string workingDirectory)
+        private List<string> Execute(string fileName, string arguments, string workingDirectory)
         {
             var result = new List<string>();
 
@@ -36,6 +37,11 @@ namespace GitBranchDiff
             }
 
             return result;
+        }
+
+        internal List<string> ExecuteGit(string arguments, string directoryName)
+        {
+            return Execute("git", $"--no-pager {arguments}", directoryName);
         }
     }
 }

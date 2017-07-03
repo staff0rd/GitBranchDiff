@@ -51,7 +51,7 @@ namespace GitBranchDiff
             var solutionPath = VisualStudioService.dte2.Solution.FullName;
             if (!string.IsNullOrEmpty(solutionPath))
             {
-                GitRoot = new ShellCommand().Execute("git", "rev-parse --show-toplevel", new FileInfo(solutionPath).DirectoryName)[0];
+                GitRoot = new ShellCommand().ExecuteGit("rev-parse --show-toplevel", new FileInfo(solutionPath).DirectoryName)[0];
                 if (reloadBranches)
                     ReloadBranches();
                 ReloadChanges();
@@ -67,7 +67,7 @@ namespace GitBranchDiff
         {
             var selectedBranch = SelectedBranch?.Name;
             Branches.Clear();
-            var branches = new ShellCommand().Execute("git", "branch", GitRoot).Select(p => p.Trim());
+            var branches = new ShellCommand().ExecuteGit("branch", GitRoot).Select(p => p.Trim());
             foreach (var branch in branches)
             {
                 Branches.Add(new Branch { Name = branch });
