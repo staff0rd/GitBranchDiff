@@ -26,15 +26,20 @@ namespace GitBranchDiff
 
             proc.Start();
 
-            while (!proc.StandardError.EndOfStream)
+            proc.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
             {
-                result.Add(proc.StandardError.ReadLine());
-            }
+                if (!string.IsNullOrEmpty(e.Data))
+                {
+                    result.Add(e.Data);
+                }
+            });
 
-            while (!proc.StandardOutput.EndOfStream)
-            {
-                result.Add(proc.StandardOutput.ReadLine());
-            }
+            proc.Start();
+
+            proc.BeginOutputReadLine();
+
+            proc.WaitForExit();
+            proc.Close();
 
             return result;
         }
