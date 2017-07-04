@@ -77,7 +77,20 @@ namespace GitBranchDiff
                     }
                 }
             }
+            Sort(rootNode);
             return rootNode.Items;
+        }
+
+        private void Sort(DirectoryItem node)
+        {
+            node.Items = node.Items.OrderBy(p => p is FileItem).ThenBy(p => p.Name).ToList();
+            foreach (var child in node.Items)
+            {
+                if (child.GetType() == typeof(DirectoryItem))
+                {
+                    Sort((DirectoryItem)child);
+                }
+            }
         }
 
         public string PathUntil(string[] path, int until)

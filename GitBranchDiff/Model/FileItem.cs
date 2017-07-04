@@ -8,6 +8,12 @@ namespace GitBranchDiff.Model
 {
     public class FileItem : Item
     {
-
+        public string Extension
+        {
+            get
+            {
+                return System.IO.Path.GetExtension(Path);
+            }
+        }
     }
 }

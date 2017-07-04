@@ -3,33 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:imaging="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"  
+              xmlns:theming="clr-namespace:Microsoft.VisualStudio.PlatformUI;assembly=Microsoft.VisualStudio.Imaging"  
+              xmlns:utilities="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.Imaging"  
+              xmlns:catalog="clr-namespace:Microsoft.VisualStudio.Imaging;assembly=Microsoft.VisualStudio.ImageCatalog"
              Background="{DynamicResource VsBrush.Window}"
              Foreground="{DynamicResource VsBrush.WindowText}"
              mc:Ignorable="d"
              xmlns:Model="clr-namespace:GitBranchDiff.Model"
+             xmlns:Converters="clr-namespace:GitBranchDiff.Converters"
              d:DesignHeight="300" d:DesignWidth="300"
              Name="MyToolWindow">
     <UserControl.Resources>
-
+        <Converters:IconConverter x:Key="iconConverter" />
         <HierarchicalDataTemplate DataType="{x:Type Model:DirectoryItem}" ItemsSource="{Binding Items}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" />
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <imaging:CrispImage Width="16" Height="16" Moniker="{x:Static catalog:KnownMonikers.FolderClosed}" />
+                <TextBlock Text="{Binding Path=Name}" Margin="7, 0" ToolTip="{Binding Path=Path}" />
+            </StackPanel>
         </HierarchicalDataTemplate>
 
         <DataTemplate DataType="{x:Type Model:FileItem}">
-            <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}">
-                <TextBlock.Style>
-                    <Style TargetType="{x:Type TextBlock}">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsDeleted}" Value="True">
-                                <Setter Property="TextBlock.TextDecorations" Value="Strikethrough" />
-                            </DataTrigger>
-                            <DataTrigger Binding="{Binding IsAdded}" Value="True">
-                                <Setter Property="Foreground" Value="Green" />
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBlock.Style>
-            </TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <imaging:CrispImage Width="16" Height="16" Moniker="{Binding Extension, 
+            Converter={StaticResource iconConverter}}" />
+                <TextBlock Text="{Binding Path=Name}" ToolTip="{Binding Path=Path}" Margin="7, 0">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsDeleted}" Value="True">
+                                    <Setter Property="TextBlock.TextDecorations" Value="Strikethrough" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding IsAdded}" Value="True">
+                                    <Setter Property="Foreground" Value="Green" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
         </DataTemplate>
     </UserControl.Resources>
 
@@ -46,7 +58,9 @@
             </Grid.ColumnDefinitions>
             <Label Margin="2">Branch</Label>
             <ComboBox Grid.Column="1" ItemsSource="{Binding Branches}" SelectedItem="{Binding SelectedBranch}" SelectedValuePath="Name" DisplayMemberPath="Name" SelectionChanged="Branch_SelectionChanged" />
-            <Button Grid.Column="2" Click="Reload_Click">Reload</Button>
+            <Button Grid.Column="2" Click="Reload_Click" Width="30" Height="30" ToolTip="Refresh">
+                <imaging:CrispImage Width="16" Height="16" Moniker="{x:Static catalog:KnownMonikers.Refresh}" />
+            </Button>
         </Grid>
         
         <TreeView Grid.Row="1" ItemsSource="{Binding Items}">
