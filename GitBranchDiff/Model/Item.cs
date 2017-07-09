@@ -12,5 +12,6 @@ namespace GitBranchDiff.Model
         public string Path { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsAdded { get; set; }
+        public bool IsModified {  get { return !IsDeleted && !IsAdded; } }
     }
 }

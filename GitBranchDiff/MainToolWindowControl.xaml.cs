@@ -30,7 +30,7 @@ namespace GitBranchDiff
             {
                 var file = (FileItem)node.DataContext;
                 var model = (MainToolWindowViewModel)DataContext;
-                model.OpenFile(file.Path);
+                model.OpenFile(file);
             }
         }
 
