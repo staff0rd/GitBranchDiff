@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="GitBranchDiff.Stafford Williams.2b53e0e1-7d86-4cb8-ae5c-55d9b00f5329" Version="1.4" Language="en-US" Publisher="Stafford Williams" />
+    <Identity Id="GitBranchDiff.Stafford Williams.2b53e0e1-7d86-4cb8-ae5c-55d9b00f5329" Version="1.5" Language="en-US" Publisher="Stafford Williams" />
     <DisplayName>GitBranchDiff</DisplayName>
     <Description>List added, modified and deleted files between the current and selected branch.</Description>
     <Tags>git, branch, diff</Tags>
