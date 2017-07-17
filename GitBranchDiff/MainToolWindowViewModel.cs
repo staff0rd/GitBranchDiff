@@ -118,7 +118,7 @@ namespace GitBranchDiff
             if (file.IsModified)
             {
                 var tempFile = Path.GetTempFileName();
-                var oldFile = new ShellCommand().ExecuteGit($"show {SelectedBranch.Name}:{path}", GitRoot);
+                var oldFile = new ShellCommand().ExecuteGit($"show {SelectedBranch.Name}:\"{path}\"", GitRoot);
                 File.WriteAllLines(tempFile, oldFile, GetEncoding(fullPath));
                 
                 VisualStudioService.dte2.ExecuteCommand("Tools.DiffFiles", $"\"{tempFile}\" \"{fullPath}\"");
