@@ -74,7 +74,7 @@ namespace GitBranchDiff
             if (selectedBranch != null)
                 SelectedBranch = Branches.SingleOrDefault(p => p.Name == selectedBranch);
             else
-                SelectedBranch = Branches.FirstOrDefault();
+                SelectedBranch = Branches.FirstOrDefault(p => p.Name == "master") ?? Branches.FirstOrDefault();
         }
 
         private void ReloadChanges()
